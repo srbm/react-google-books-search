@@ -4,9 +4,6 @@ import './resultsList.scss'
 import ResultItem from '../resultsItem/resultsItem';
 
 class ResultsList extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const items = this.props.books.map((book, index) => {
       return (<ResultItem
