@@ -11,34 +11,32 @@ class App extends React.Component {
       books: [],
     }
   }
-  componentDidMount() {
-    const params = {
-      q: 'ishmael',
-      filter: 'ebooks',
-      maxResults: 10,
-
-    }
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${params.q}&maxResults=${params.maxResults}`
+  handleSearch(search) {
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${search.book}&filter=${search.filter}&printType=${search.printType}&maxResults=10&key=AIzaSyCa46rR-S9qDK3DDN2uXheJo63NVxGayLs`
     fetch(url)
       .then(res => {
         if(!res.ok) {
-          throw new Error('didnt work this time');
+          throw new Error('fetch didnt work this time');
         }
         return res;
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         const books = data.items.map(book => {
-          let price;
+          let price, thumbnail;
           book.saleInfo.saleability === "FOR_SALE"
           ? price = book.saleInfo.retailPrice.amount
           : price = "Not for sale";
+          book.volumeInfo.imageLinks
+          ? thumbnail = book.volumeInfo.imageLinks.smallThumbnail
+          : thumbnail = "";
           return {
             "author": book.volumeInfo.authors,
             "title": book.volumeInfo.title,
             "subtitle": book.volumeInfo.subtitle,
             "description": book.volumeInfo.description,
-            "thumbnail": book.volumeInfo.imageLinks.smallThumbnail,
+            "thumbnail": thumbnail,
             "price": price,
           }}
         );
@@ -51,14 +49,17 @@ class App extends React.Component {
         console.log(err.message);
       })
   }
+  componentDidMount() {
+    
+  }
   render() {
     return (
       <div className="App">
         <header>
-          <h1>Search Books</h1>
+          <h1>Google Book Search</h1>
         </header>
         <main>
-          <SearchForm />
+          <SearchForm handleSearch={search => this.handleSearch(search)}/>
           <ResultsList books={this.state.books}/>
         </main>
       </div>
