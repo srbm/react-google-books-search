@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './resultItem.scss';
+import './resultsItem.scss';
 
 class ResultItem extends Component {
   constructor(props) {

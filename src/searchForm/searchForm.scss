@@ -1,0 +1,18 @@
+fieldset {
+  padding: 0;
+  border: none;
+}
+label, input, select {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+label {
+  margin-left: 10px;
+}
+.topLineSearch {
+  background-color: #ABABAB;
+}
+.bottomLineSearch {
+  background-color:#DEDEDE;
+}
